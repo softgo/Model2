@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+    "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+
+	<!-- 娱乐人物(cron表达式使用) -->
+	<!-- 
+	    <bean id="exportFashionXML" class="com.zhongsou.common.jobtask.ExportFashionDataTask">
+	    	<property name="personService" ref="personService"></property>
+	    </bean>
+	    <bean id="exportFashionJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+	          <property name="jobClass" value="com.zhongsou.common.jobtask.ExportFashionDataJob"/>
+			  <property name="jobDataAsMap">
+	            <map>
+	                <entry key="exportFashionDataServic" value-ref="exportFashionXML"/>
+	            </map>          
+	          </property>
+	    </bean>
+	    
+	    <bean id="exportFashionTrigger0" class="org.springframework.scheduling.quartz.CronTriggerBean">
+	         <property name="jobDetail" ref="exportFashionJob"/>
+	         <property name="cronExpression" value="0 0 6 * * ?"/>
+	    </bean>
+	    
+	    <bean id="exportFashionTrigger1" class="org.springframework.scheduling.quartz.SimpleTriggerBean">
+	         <property name="jobDetail" ref="exportFashionJob"/>
+	         <property name="repeatInterval" value="7800000"></property>
+	         <property name="repeatCount" value="-1"></property>
+	    </bean>
+	 -->
+
+	<!-- 
+	    <bean id="schedulerFactory" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+	        <property name="triggers">
+	            <list>
+	            	<ref bean="exportFashionTrigger0" />
+	            	<ref bean="exportFashionTrigger1" />
+	            </list>
+	        </property>
+	    </bean>
+	 -->
+	
+</beans>

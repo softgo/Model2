@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="userloginlog">
+
+   <!-- 以下与实体类的中字段一致 -->
+   <sql id="select_column">
+       loginId,
+       userId,
+       loginTime,
+       loginIp
+   </sql>
+   
+   <!-- 查询 -->
+   <select id="find" resultType="UserLoginLog" parameterType="UserLoginLog">
+   	   select u.userName,l.* from userloginlog l,sysuser u  where  u.userId = l.userId  
+   	   <if test="t.userName!=null and t.userName !='' ">
+   	   		 and u.userName like '%${t.userName}%'  
+   	   </if>
+   	   <if test="t.userId!=null and t.userId > 0 ">
+   	   		and l.userId=#{t.userId}  
+   	   </if>
+   </select>
+   
+   <!-- 总页数 -->
+   <select id="getObjsCount" resultType="int" parameterType="UserLoginLog">
+   	   select count(0) from userloginlog
+   </select>
+   
+   <!-- 新增用户登陆记录 -->
+   <insert id="add" parameterType="UserLoginLog">
+     insert into userloginlog(userId,loginIp) values(#{userId},#{loginIp})
+   </insert>
+   
+</mapper>

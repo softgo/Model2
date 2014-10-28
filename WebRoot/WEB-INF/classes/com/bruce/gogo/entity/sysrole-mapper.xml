@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="sysrole">
+
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="select_column">
+		id,
+		enable,
+		name,
+		roleKey,
+		description
+	</sql>
+	
+	<!--resultType="SysRole" 每返回一条结果封装到Roles里 -->
+	<select id="find" resultType="SysRole" parameterType="java.util.HashMap">
+		select
+		<include refid="select_column" />
+		from sysrole
+		<where>
+			<if test="t.name != null and t.name != ''">
+				name like '%${t.name}%'
+			</if>
+		</where>
+	</select>
+	
+	<!--.根据角色名称查找. -->
+	<select id="findByName" resultType="SysRole" parameterType="String">
+		select
+		<include refid="select_column" />
+		from sysrole where name = #{name} 
+	</select>
+	
+	<!-- 查找所有. -->
+	<select id="findAll" resultType="SysRole">
+		select
+		<include refid="select_column" />
+		from sysrole
+	</select>
+	
+	<!-- 总记录数 -->
+	<select id="getObjsCount" parameterType="SysRole" resultType="int">
+		select count(0) from sysrole
+		<where>
+			<if test="name != null and name != ''">
+				name like '%${name}%'
+			</if>
+		</where>
+	</select>
+	
+	<!-- 增加用户 -->
+	<insert id="add" parameterType="SysRole">
+		insert into sysrole( 
+		name,
+		enable,
+		roleKey,
+		description
+		)
+		values (#{name},
+		#{enable},#{roleKey},
+		#{description}
+		)
+	</insert>
+
+	<delete id="deleteById" parameterType="String">
+		delete from sysrole where
+		id=#{id}
+	</delete>
+	
+	<select id="getObjById" parameterType="String" resultType="SysRole">
+		select
+		<include refid="select_column" />
+		from sysrole where id=#{id}
+	</select>
+	
+	<update id="update" parameterType="SysRole">
+		update sysrole
+		<set>
+				name=#{name},
+				enable=#{enable},
+				roleKey=#{roleKey},
+				description=#{description}
+		</set>
+		where id=#{id}
+	</update>
+	
+	<select id="findbyUserRole" parameterType="String" resultType="SysRole">
+		select
+		<include refid="select_column" />
+		from sysrole where id in (SELECT role_id FROM user_role
+		WHERE user_id=#{id})
+	</select>
+	
+	<!-- 增加角色和用户 -->
+	<insert id="saveUserRole" parameterType="UserRole">
+		insert into user_role(user_id,role_id) values (#{userId},#{roleId})
+	</insert>
+	
+	<delete id="deleteUserRole" parameterType="String">
+		delete from user_role where user_id=#{userId}
+	</delete>
+	
+	<update id="updateUserRole" parameterType="String">
+		update user_role set user_id=#{userId}
+	</update>
+	
+</mapper>

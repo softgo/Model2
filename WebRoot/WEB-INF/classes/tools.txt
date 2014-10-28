@@ -1,0 +1,12 @@
+###
+代码生成类使用时候需要注意的事项是：
+
+1. 工程中必须要有 resources 文件夹，并且文件夹中的文件不要随意的改动，如果需要改动，得多多注意。
+
+2. 生成代码的接口是：CodeGenerateFactory.codeGenerate(tableName, modelName, entityPackage, FtlDef.KEY_TYPE_01);
+ tableName：表的名字; modelName : 所属某块的名字; entityPackage：包名一级就加"\\",如 “model\\” ;二级就两个"\\", 如：“test\\model\\”
+ FtlDef 是静态类，用来表示是否是自己生成主键。
+ 
+3. 如果需要修改某些实现，那就在 MapperTemplate.xml 中去修改某版，随后就可以使用。
+
+4. 在实际的使用中，根据使用场景改变其中的返回路径。

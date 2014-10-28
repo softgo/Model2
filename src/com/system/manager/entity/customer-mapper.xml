@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="customer" > 
+<!-- Result Map-->
+
+	<!-- 使用时,放开.-->
+	<!-- 以下与实体类的中字段一致 -->
+	<sql id="select_column">
+		 id,custId,custName,engName,custSex,country,province,city,otherPlace,mobilePhone,linePhone,custPhone,personalMail,custMail,custQQ,companyName,department,companyMark,zipCode,companyPhone,tempVal0,tempVal1,tempVal2
+	</sql>
+   
+    <!-- 查询条件 -->
+	<sql id="select_where_clause">
+	 where 1=1
+		<trim  suffixOverrides="," >
+										<if test="id != null and id != ''" >
+				    and id =  #{id}
+				</if>
+										<if test="custId != null and custId != ''" >
+				    and custId =  #{custId}
+				</if>
+										<if test="custName != null and custName != ''" >
+				    and custName =  #{custName}
+				</if>
+										<if test="engName != null and engName != ''" >
+				    and engName =  #{engName}
+				</if>
+										<if test="custSex != null and custSex != ''" >
+				    and custSex =  #{custSex}
+				</if>
+										<if test="country != null and country != ''" >
+				    and country =  #{country}
+				</if>
+										<if test="province != null and province != ''" >
+				    and province =  #{province}
+				</if>
+										<if test="city != null and city != ''" >
+				    and city =  #{city}
+				</if>
+										<if test="otherPlace != null and otherPlace != ''" >
+				    and otherPlace =  #{otherPlace}
+				</if>
+										<if test="mobilePhone != null and mobilePhone != ''" >
+				    and mobilePhone =  #{mobilePhone}
+				</if>
+										<if test="linePhone != null and linePhone != ''" >
+				    and linePhone =  #{linePhone}
+				</if>
+										<if test="custPhone != null and custPhone != ''" >
+				    and custPhone =  #{custPhone}
+				</if>
+										<if test="personalMail != null and personalMail != ''" >
+				    and personalMail =  #{personalMail}
+				</if>
+										<if test="custMail != null and custMail != ''" >
+				    and custMail =  #{custMail}
+				</if>
+										<if test="custQQ != null and custQQ != ''" >
+				    and custQQ =  #{custQQ}
+				</if>
+										<if test="companyName != null and companyName != ''" >
+				    and companyName =  #{companyName}
+				</if>
+										<if test="department != null and department != ''" >
+				    and department =  #{department}
+				</if>
+										<if test="companyMark != null and companyMark != ''" >
+				    and companyMark =  #{companyMark}
+				</if>
+										<if test="zipCode != null and zipCode != ''" >
+				    and zipCode =  #{zipCode}
+				</if>
+										<if test="companyPhone != null and companyPhone != ''" >
+				    and companyPhone =  #{companyPhone}
+				</if>
+										<if test="tempVal0 != null and tempVal0 != ''" >
+				    and tempVal0 =  #{tempVal0}
+				</if>
+										<if test="tempVal1 != null and tempVal1 != ''" >
+				    and tempVal1 =  #{tempVal1}
+				</if>
+										<if test="tempVal2 != null and tempVal2 != ''" >
+				    and tempVal2 =  #{tempVal2}
+				</if>
+					</trim>
+	</sql>
+   
+	<!-- 查询条件 -->
+	<select id="find" resultType="Customer" parameterType="java.util.HashMap">
+		select
+		<include refid="select_column" />
+		from  customer  
+		<include refid="select_where_clause"/>		
+	</select>
+	
+	<!-- 通过字段名字查询(使用时候,where中的字段-=userName=-要自己添加.) -->
+	<select id="findByName" resultType="Customer" parameterType="String">
+		select
+		<include refid="select_column" />
+		from  customer  where userName = #{userName}  
+	</select>
+
+	<!-- 通过对象找对象. -->
+	<select id="findByProps" resultType="Customer" parameterType="Customer">
+		select
+		<include refid="select_column" />
+		from  customer  
+		<include refid="select_where_clause" />  
+	</select>
+   
+   <!-- 查找所有 -->
+   	<select id="findAll" resultType="Customer">
+		select
+		<include refid="select_column" />
+		from customer
+	</select>
+   
+	<!-- 插入记录 -->
+	<insert id="add" parameterType="Customer" >
+				<selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="id">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+			  	insert into customer(id,custId,custName,engName,custSex,country,province,city,otherPlace,mobilePhone,linePhone,custPhone,personalMail,custMail,custQQ,companyName,department,companyMark,zipCode,companyPhone,tempVal0,tempVal1,tempVal2)
+ values(#{id},#{custId},#{custName},#{engName},#{custSex},#{country},#{province},#{city},#{otherPlace},#{mobilePhone},#{linePhone},#{custPhone},#{personalMail},#{custMail},#{custQQ},#{companyName},#{department},#{companyMark},#{zipCode},#{companyPhone},#{tempVal0},#{tempVal1},#{tempVal2})
+	</insert>
+ 
+	<!-- 修改记录，只修改只不为空的字段 -->
+	<update id="update" parameterType="Customer" >
+		update customer set 
+	<trim  suffixOverrides="," >
+	<if test="custId != null  ">
+		custId=#{custId},
+	</if>
+	<if test="custName != null  ">
+		custName=#{custName},
+	</if>
+	<if test="engName != null  ">
+		engName=#{engName},
+	</if>
+	<if test="custSex != null  ">
+		custSex=#{custSex},
+	</if>
+	<if test="country != null  ">
+		country=#{country},
+	</if>
+	<if test="province != null  ">
+		province=#{province},
+	</if>
+	<if test="city != null  ">
+		city=#{city},
+	</if>
+	<if test="otherPlace != null  ">
+		otherPlace=#{otherPlace},
+	</if>
+	<if test="mobilePhone != null  ">
+		mobilePhone=#{mobilePhone},
+	</if>
+	<if test="linePhone != null  ">
+		linePhone=#{linePhone},
+	</if>
+	<if test="custPhone != null  ">
+		custPhone=#{custPhone},
+	</if>
+	<if test="personalMail != null  ">
+		personalMail=#{personalMail},
+	</if>
+	<if test="custMail != null  ">
+		custMail=#{custMail},
+	</if>
+	<if test="custQQ != null  ">
+		custQQ=#{custQQ},
+	</if>
+	<if test="companyName != null  ">
+		companyName=#{companyName},
+	</if>
+	<if test="department != null  ">
+		department=#{department},
+	</if>
+	<if test="companyMark != null  ">
+		companyMark=#{companyMark},
+	</if>
+	<if test="zipCode != null  ">
+		zipCode=#{zipCode},
+	</if>
+	<if test="companyPhone != null  ">
+		companyPhone=#{companyPhone},
+	</if>
+	<if test="tempVal0 != null  ">
+		tempVal0=#{tempVal0},
+	</if>
+	<if test="tempVal1 != null  ">
+		tempVal1=#{tempVal1},
+	</if>
+	<if test="tempVal2 != null  ">
+		tempVal2=#{tempVal2},
+	</if>
+	</trim> where id=#{id}
+	</update>
+	
+	<!-- 修改所有属性-->  
+	 <update id="updateAll" parameterType="Customer" >
+	  	update customer set custId=#{custId},custName=#{custName},engName=#{engName},custSex=#{custSex},country=#{country},province=#{province},city=#{city},otherPlace=#{otherPlace},mobilePhone=#{mobilePhone},linePhone=#{linePhone},custPhone=#{custPhone},personalMail=#{personalMail},custMail=#{custMail},custQQ=#{custQQ},companyName=#{companyName},department=#{department},companyMark=#{companyMark},zipCode=#{zipCode},companyPhone=#{companyPhone},tempVal0=#{tempVal0},tempVal1=#{tempVal1},tempVal2=#{tempVal2} where id=#{id}
+	 </update>
+
+	<!-- 删除记录 -->
+	<delete id="deleteById" parameterType="String">
+		delete 	 from customer where id = #{id}
+	</delete>
+	
+	<!-- 删除记录 -->
+	<delete id="delete" parameterType="Customer">
+		delete 	 from customer where id = #{id}
+	</delete>
+ 
+	<!-- 根据id查询 客户管理 -->
+	<select id="getObjById"  resultType="Customer" parameterType="String">
+		select <include refid="select_where_clause" /> 
+	 from customer where id = #{id}
+	</select>
+
+	<!-- 客户管理 列表总数-->
+	<select id="getObjsCount" resultType="java.lang.Integer"  parameterType="Customer">
+		select count(1) from customer 
+		<include refid="select_where_clause"/>
+	</select>
+	  	
+</mapper>   

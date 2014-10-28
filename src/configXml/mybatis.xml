@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<typeAliases>
+	
+		<!-- 给实体Bean一个别名-->
+		<typeAlias type="com.bruce.gogo.entity.SysUser" alias="SysUser" />
+		<typeAlias type="com.bruce.gogo.entity.Resource" alias="Resource"/>
+		<typeAlias type="com.bruce.gogo.entity.SysRole" alias="SysRole"/>
+		<typeAlias type="com.bruce.gogo.entity.ResourceRole" alias="ResourceRole"/>
+		<typeAlias type="com.bruce.gogo.entity.UserRole" alias="UserRole"/>
+		<typeAlias type="com.bruce.gogo.entity.ServerInfo" alias="ServerInfo"/>
+		<typeAlias type="com.bruce.gogo.entity.UserLoginLog" alias="UserLoginLog" />
+		<typeAlias type="com.bruce.gogo.entity.SysLog" alias="SysLog"/>
+		
+		<!-- 加入别名20141020. -->
+		<typeAlias type="com.system.manager.entity.Customer" alias="Customer"/>
+				
+	</typeAliases>
+	
+</configuration>
